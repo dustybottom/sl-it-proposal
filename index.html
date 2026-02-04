@@ -13,10 +13,23 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; overflow: hidden; background-color: #f8fafc; margin: 0; }
-        .slide-enter { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow: hidden; 
+            background-color: #f8fafc; 
+            margin: 0; 
+            height: 100vh;
+        }
+        .slide-enter { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Thin Scrollbar for content */
+        .content-scrollbar::-webkit-scrollbar { width: 5px; }
+        .content-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .content-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .content-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
@@ -26,7 +39,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Robuste SVG Icon Komponente
         const Icon = ({ name, size = 24, className = "" }) => {
             const paths = {
                 Globe: <g><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></g>,
@@ -49,7 +61,7 @@
                 ShieldCheck: <g><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></g>
             };
             return (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                     {paths[name]}
                 </svg>
             );
@@ -62,12 +74,12 @@
                 {
                     title: "Strategic IT Proposal",
                     content: (
-                        <div className="flex flex-col items-center justify-center h-full text-center slide-enter">
-                            <div className="bg-blue-600 p-8 rounded-3xl mb-8 shadow-2xl inline-block">
-                                <Icon name="Globe" size={100} className="text-white" />
+                        <div className="flex flex-col items-center justify-center min-h-full py-8 text-center slide-enter">
+                            <div className="bg-blue-600 p-4 sm:p-6 rounded-3xl mb-4 shadow-2xl inline-block">
+                                <Icon name="Globe" size={60} className="text-white sm:w-16 sm:h-16" />
                             </div>
-                            <h1 className="text-7xl font-black text-slate-900 mb-4 tracking-tight uppercase">SL International</h1>
-                            <p className="text-2xl text-slate-500 font-medium uppercase tracking-[0.2em]">Proposed Strategy & Digital Roadmap 2026</p>
+                            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 mb-2 uppercase tracking-tight">SL International</h1>
+                            <p className="text-base sm:text-lg text-slate-500 font-medium uppercase tracking-[0.2em]">Proposed Strategy & Digital Roadmap 2026</p>
                         </div>
                     ),
                     notes: "Willkommen!"
@@ -75,28 +87,32 @@
                 {
                     title: "Proposed Goal: Maximum Efficiency",
                     content: (
-                        <div className="grid grid-cols-2 gap-12 items-stretch h-full slide-enter">
-                            <div className="flex flex-col justify-center space-y-12">
-                                <div className="flex items-center space-x-6 bg-white p-8 rounded-3xl border-l-8 border-blue-500 shadow-lg">
-                                    <Icon name="Users" size={56} className="text-blue-600" />
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center min-h-full slide-enter py-4">
+                            <div className="flex flex-col justify-center space-y-4">
+                                <div className="flex items-center space-x-4 bg-white p-4 rounded-2xl border-l-8 border-blue-500 shadow-lg">
+                                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg">
+                                        <Icon name="Users" size={24} className="text-blue-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm uppercase font-black text-slate-400">Team Transition</p>
-                                        <p className="text-5xl font-black text-slate-800">15+ → 5 Members</p>
+                                        <p className="text-[10px] uppercase font-black text-slate-400">Team Transition</p>
+                                        <p className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">15+ → 5 Members</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center space-x-6 bg-white p-8 rounded-3xl border-l-8 border-green-500 shadow-lg">
-                                    <Icon name="Zap" size={56} className="text-green-600" />
+                                <div className="flex items-center space-x-4 bg-white p-4 rounded-2xl border-l-8 border-green-500 shadow-lg">
+                                    <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-green-50 rounded-lg">
+                                        <Icon name="Zap" size={24} className="text-green-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm uppercase font-black text-slate-400">Target Strategy</p>
-                                        <p className="text-5xl font-black text-slate-800">Digital Scalability</p>
+                                        <p className="text-[10px] uppercase font-black text-slate-400">Target Strategy</p>
+                                        <p className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Digital Scalability</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-slate-900 p-12 rounded-[40px] text-white shadow-2xl relative overflow-hidden flex flex-col justify-center">
-                                <Icon name="BarChart" size={300} className="absolute -right-10 -bottom-10 text-white/10" />
+                            <div className="bg-slate-900 p-6 rounded-[24px] text-white shadow-2xl relative overflow-hidden flex flex-col justify-center min-h-[220px]">
+                                <Icon name="BarChart" size={180} className="absolute -right-8 -bottom-8 text-white/5" />
                                 <div className="relative z-10">
-                                    <h3 className="text-4xl font-black mb-6 italic italic uppercase text-blue-400">"Technology Force Multiplier"</h3>
-                                    <p className="text-2xl text-slate-400 leading-relaxed font-medium">
+                                    <h3 className="text-xl sm:text-2xl font-black mb-3 italic uppercase text-blue-400 leading-tight">"Technology Force Multiplier"</h3>
+                                    <p className="text-sm sm:text-base text-slate-400 font-medium leading-relaxed">
                                         Integrated systems are proposed to achieve enterprise-level output with our specialized team. Technology multiplies human capacity.
                                     </p>
                                 </div>
@@ -106,15 +122,15 @@
                     notes: "Da wir mit einem Kernteam von 5 Personen starten, schlage ich vor, Technologie als Kraftverstärker einzusetzen, um das Arbeitspensum von früher 15+ Personen abzubilden."
                 },
                 {
-                    title: "Infrastructure: Proposed Transition",
+                    title: "Infrastructure Proposal",
                     content: (
-                        <div className="h-full flex flex-col justify-center slide-enter">
-                            <div className="grid grid-cols-11 gap-4 items-center">
-                                <div className="col-span-5 space-y-4">
-                                    <div className="text-center mb-6">
-                                        <div className="inline-flex items-center space-x-2 bg-slate-900 px-6 py-3 rounded-full text-white font-black text-sm uppercase shadow-lg border border-red-500/50">
-                                            <Icon name="Power" size={20} className="text-red-500" />
-                                            <span>LOCAL SERVERS (Retired)</span>
+                        <div className="flex flex-col justify-center min-h-full slide-enter py-4">
+                            <div className="grid grid-cols-11 gap-1 items-center">
+                                <div className="col-span-5 space-y-2">
+                                    <div className="text-center mb-2">
+                                        <div className="inline-flex items-center space-x-1.5 bg-slate-900 px-3 py-1.5 rounded-full text-white font-black text-[9px] uppercase border border-red-500/30">
+                                            <Icon name="Power" size={12} className="text-red-500" />
+                                            <span>LOCAL SERVERS</span>
                                         </div>
                                     </div>
                                     {[
@@ -123,25 +139,25 @@
                                         { label: "Local File Server", icon: "FileText" },
                                         { label: "Active Directory (Local)", icon: "Lock" }
                                     ].map((item, idx) => (
-                                        <div key={idx} className="bg-slate-900 p-5 rounded-xl border-l-8 border-red-600 flex items-center justify-between shadow-md">
-                                            <span className="font-bold text-white text-xl">{item.label}</span>
-                                            <Icon name={item.icon} size={28} className="text-red-400" />
+                                        <div key={idx} className="bg-slate-900 p-2.5 rounded-xl border-l-4 border-red-600 flex items-center justify-between shadow-md">
+                                            <span className="font-bold text-white text-[11px] sm:text-sm">{item.label}</span>
+                                            <Icon name={item.icon} size={16} className="text-red-400" />
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="col-span-1 flex flex-col items-center pt-24 space-y-[4.6rem]">
-                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={36} />
-                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={36} />
-                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={36} />
-                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={36} />
+                                <div className="col-span-1 flex flex-col items-center pt-8 space-y-12 lg:space-y-[3.1rem]">
+                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={20} />
+                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={20} />
+                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={20} />
+                                    <Icon name="ArrowRight" className="text-blue-500 animate-pulse" size={20} />
                                 </div>
 
-                                <div className="col-span-5 space-y-4">
-                                    <div className="text-center mb-6">
-                                        <div className="inline-flex items-center space-x-2 bg-green-600 px-6 py-3 rounded-full text-white font-black text-sm uppercase shadow-lg">
-                                            <Icon name="CheckCircle" size={20} />
-                                            <span>PROPOSED CLOUD ECOSYSTEM</span>
+                                <div className="col-span-5 space-y-2">
+                                    <div className="text-center mb-2">
+                                        <div className="inline-flex items-center space-x-1.5 bg-green-600 px-3 py-1.5 rounded-full text-white font-black text-[9px] uppercase">
+                                            <Icon name="CheckCircle" size={12} />
+                                            <span>CLOUD ECOSYSTEM</span>
                                         </div>
                                     </div>
                                     {[
@@ -150,9 +166,9 @@
                                         "SharePoint / OneDrive",
                                         "Microsoft Cloud Identity"
                                     ].map((label, idx) => (
-                                        <div key={idx} className="bg-white p-5 rounded-xl border-l-8 border-green-500 flex items-center space-x-4 shadow-md border border-slate-100">
-                                            <Icon name="Cloud" size={28} className="text-green-600" />
-                                            <span className="font-bold text-slate-800 text-xl">{label}</span>
+                                        <div key={idx} className="bg-white p-2.5 rounded-xl border-l-4 border-green-500 flex items-center space-x-2 shadow-md border border-slate-100">
+                                            <Icon name="Cloud" size={16} className="text-green-600" />
+                                            <span className="font-bold text-slate-800 text-[11px] sm:text-sm">{label}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -164,140 +180,133 @@
                 {
                     title: "Proposed 2-Step Roadmap",
                     content: (
-                        <div className="relative h-full flex items-center justify-center px-20 slide-enter">
-                            <div className="absolute h-2 w-full bg-slate-200 top-1/2 -translate-y-1/2 rounded-full"></div>
-                            <div className="grid grid-cols-2 w-full gap-40 relative z-10">
-                                <div className="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-blue-500">
-                                    <div className="text-blue-600 font-black text-2xl mb-2 italic uppercase tracking-tighter">Step 1: IMMEDIATE</div>
-                                    <h4 className="text-4xl font-bold text-slate-900 mb-6 underline decoration-blue-200">Quick Revenue</h4>
-                                    <ul className="space-y-4 text-xl text-slate-600 font-medium">
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-blue-500" /> Clone Shopify Store</li>
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-blue-500" /> Pathway ERP-App</li>
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-blue-500" /> Automated Shipping</li>
+                        <div className="relative h-full flex items-center justify-center slide-enter px-2">
+                            <div className="absolute h-0.5 w-full bg-slate-200 top-1/2 -translate-y-1/2 rounded-full"></div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 sm:gap-12 relative z-10">
+                                <div className="bg-white p-4 rounded-2xl shadow-xl border-t-4 border-blue-500">
+                                    <div className="text-blue-600 font-black text-xs mb-1 italic uppercase tracking-tighter">Step 1: IMMEDIATE</div>
+                                    <h4 className="text-lg font-bold text-slate-900 mb-2 underline decoration-blue-200">Quick Revenue</h4>
+                                    <ul className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-blue-500" size={14} /> Clone Shopify Store</li>
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-blue-500" size={14} /> Pathway ERP-App</li>
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-blue-500" size={14} /> Automated Shipping</li>
                                     </ul>
                                 </div>
-                                <div className="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-green-500">
-                                    <div className="text-green-600 font-black text-2xl mb-2 italic uppercase tracking-tighter">Step 2: MID-TERM</div>
-                                    <h4 className="text-4xl font-bold text-slate-900 mb-6 underline decoration-green-200">Business Engine</h4>
-                                    <ul className="space-y-4 text-xl text-slate-600 font-medium">
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-green-500" /> Business Central Launch</li>
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-green-500" /> Full System Integration</li>
-                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-3 text-green-500" /> Scalable Growth Base</li>
+                                <div className="bg-white p-4 rounded-2xl shadow-xl border-t-4 border-green-500">
+                                    <div className="text-green-600 font-black text-xs mb-1 italic uppercase tracking-tighter">Step 2: MID-TERM</div>
+                                    <h4 className="text-lg font-bold text-slate-900 mb-2 underline decoration-green-200">Business Engine</h4>
+                                    <ul className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-green-500" size={14} /> Business Central Launch</li>
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-green-500" size={14} /> Full System Integration</li>
+                                        <li className="flex items-center"><Icon name="ArrowRight" className="mr-2 text-green-500" size={14} /> Scalable Growth Base</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     ),
-                    notes: "Mein Vorschlag ist ein zwei-phasiges Vorgehen: Zuerst schneller Umsatz über den Shop-Klon, gefolgt von einer stabilen ERP-Einführung im Juli für langfristige Stabilität."
+                    notes: "Mein Vorschlag ist ein zwei-phasiges Vorgehen: Zuerst schneller Umsatz über den Shop-Klon, gefolgt von einer stabilen ERP-Einführung im Juli."
                 },
                 {
                     title: "Proposal Step 1: Pathway",
                     content: (
-                        <div className="flex flex-col items-center justify-center h-full slide-enter">
-                            <div className="grid grid-cols-2 gap-12 w-full max-w-5xl">
-                                <div className="bg-slate-900 text-white p-12 rounded-3xl shadow-xl border border-slate-800">
-                                    <div className="flex items-center space-x-4 mb-8">
-                                        <div className="bg-blue-600 p-4 rounded-2xl text-white shadow-lg"><Icon name="ShoppingCart" size={40} /></div>
-                                        <h4 className="text-4xl font-black italic">Shopify Clone</h4>
+                        <div className="flex flex-col items-center justify-center h-full slide-enter py-4">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full max-w-4xl">
+                                <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800">
+                                    <div className="flex items-center space-x-3 mb-4">
+                                        <div className="bg-blue-600 p-2 rounded-xl text-white shadow-lg"><Icon name="ShoppingCart" size={24} /></div>
+                                        <h4 className="text-xl font-black italic tracking-tight">Shopify Clone</h4>
                                     </div>
-                                    <p className="text-2xl text-slate-400">Proposed quick-start via proven storefront architecture.</p>
+                                    <p className="text-sm text-slate-400">Proposed quick-start via proven storefront architecture.</p>
                                 </div>
-                                <div className="bg-blue-700 text-white p-12 rounded-3xl shadow-xl">
-                                    <div className="flex items-center space-x-4 mb-8">
-                                        <div className="bg-white p-4 rounded-2xl text-blue-700 shadow-lg"><Icon name="BarChart" size={40} /></div>
-                                        <h4 className="text-4xl font-black italic">Pathway App</h4>
+                                <div className="bg-blue-700 text-white p-6 rounded-2xl shadow-xl">
+                                    <div className="flex items-center space-x-3 mb-4">
+                                        <div className="bg-white p-2 rounded-xl text-blue-700 shadow-lg"><Icon name="BarChart" size={24} /></div>
+                                        <h4 className="text-xl font-black italic tracking-tight">Pathway App</h4>
                                     </div>
-                                    <p className="text-2xl text-white font-bold bg-black/20 p-6 rounded-2xl border border-white/10 shadow-inner">
+                                    <p className="text-[11px] sm:text-sm text-white font-bold bg-black/20 p-3 rounded-xl border border-white/10 shadow-inner leading-relaxed">
                                         Proposed Shopify ERP App: Handling automated billing and tracking during the transition.
                                     </p>
                                 </div>
                             </div>
                         </div>
                     ),
-                    notes: "Im ersten Schritt schlage ich Pathway vor – ein spezialisiertes Tool, das uns sofort rechnungsfähig macht, während wir das große System im Hintergrund vorbereiten."
+                    notes: "Im ersten Schritt schlage ich Pathway vor – ein spezialisiertes Tool, das uns sofort rechnungsfähig macht."
                 },
                 {
                     title: "Proposed Ecosystem Hub",
                     content: (
-                        <div className="flex flex-col items-center justify-start h-full pt-44 slide-enter">
-                            <div className="relative p-12 bg-blue-50 rounded-full border-4 border-dashed border-blue-200 scale-110">
-                                <div className="bg-blue-600 text-white p-10 rounded-3xl shadow-2xl relative z-10 scale-125 border-4 border-white flex flex-col items-center shadow-blue-200/50">
-                                    <Icon name="Monitor" size={80} />
-                                    <p className="mt-4 font-black text-xl">MS Business Central</p>
+                        <div className="flex flex-col items-center justify-center min-h-full slide-enter py-2">
+                            <div className="relative p-6 sm:p-10 bg-blue-50 rounded-full border border-dashed border-blue-200 scale-90 sm:scale-100">
+                                <div className="bg-blue-600 text-white p-6 rounded-2xl shadow-2xl relative z-10 border-2 border-white flex flex-col items-center justify-center w-36 h-36 sm:w-44 sm:h-44">
+                                    <Icon name="Monitor" size={48} />
+                                    <p className="mt-1 font-black text-[10px] sm:text-xs text-center leading-tight uppercase">MS Business Central</p>
                                 </div>
-                                <div className="absolute -top-36 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                                    <Icon name="ShoppingCart" size={64} className="text-blue-600 mb-2 drop-shadow-md" />
-                                    <p className="text-sm font-black bg-white px-6 py-2 rounded-full shadow-lg border-2 border-blue-500 whitespace-nowrap">Shopify Store</p>
+                                <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                                    <Icon name="ShoppingCart" size={32} className="text-blue-600 mb-0.5 drop-shadow-sm" />
+                                    <p className="text-[8px] sm:text-[9px] font-black bg-white px-2 py-0.5 rounded-full shadow border border-blue-500 whitespace-nowrap">Shopify Store</p>
                                 </div>
-                                <div className="absolute -bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                                    <Icon name="Layers" size={56} className="text-slate-500 mb-2" />
-                                    <p className="text-sm font-bold bg-white px-6 py-2 rounded-full shadow-lg border-2 border-slate-300 whitespace-nowrap">PIM Systems</p>
+                                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                                    <Icon name="Layers" size={28} className="text-slate-500 mb-0.5" />
+                                    <p className="text-[8px] sm:text-[9px] font-bold bg-white px-2 py-0.5 rounded-full shadow border border-slate-300 whitespace-nowrap">PIM Systems</p>
                                 </div>
-                                <div className="absolute top-1/2 -right-52 -translate-y-1/2 flex flex-col items-center">
-                                    <Icon name="Truck" size={64} className="text-green-600 mb-2 drop-shadow-md" />
-                                    <p className="text-sm font-black bg-white px-6 py-2 rounded-full shadow-lg border-2 border-green-500 whitespace-nowrap">Shipping Cloud</p>
+                                <div className="absolute top-1/2 -right-32 -translate-y-1/2 flex flex-col items-center">
+                                    <Icon name="Truck" size={32} className="text-green-600 mb-0.5 drop-shadow-sm" />
+                                    <p className="text-[8px] sm:text-[9px] font-black bg-white px-2 py-0.5 rounded-full shadow border border-green-500 whitespace-nowrap">Shipping Cloud</p>
                                 </div>
-                                <div className="absolute top-1/2 -left-52 -translate-y-1/2 flex flex-col items-center">
-                                    <Icon name="Calculator" size={64} className="text-orange-600 mb-2 drop-shadow-md" />
-                                    <p className="text-sm font-black bg-white px-6 py-2 rounded-full shadow-lg border-2 border-orange-500 whitespace-nowrap text-center uppercase tracking-tighter">Tax / DATEV Interface</p>
+                                <div className="absolute top-1/2 -left-32 -translate-y-1/2 flex flex-col items-center text-center">
+                                    <Icon name="Calculator" size={32} className="text-orange-600 mb-0.5 drop-shadow-sm" />
+                                    <p className="text-[8px] sm:text-[9px] font-black bg-white px-2 py-0.5 rounded-full shadow border border-orange-500 whitespace-nowrap uppercase">Tax Interface</p>
                                 </div>
                             </div>
                         </div>
                     ),
-                    notes: "Dies ist das vorgeschlagene Zielbild: Eine vernetzte 4-Säulen-Struktur mit Business Central als Herzstück für eine saubere Datenhaltung."
+                    notes: "Dies ist das vorgeschlagene Zielbild: Eine vernetzte 4-Säulen-Struktur mit Business Central als Herzstück."
                 },
                 {
                     title: "Security & Device Management",
                     content: (
-                        <div className="grid grid-cols-2 gap-12 h-full items-center slide-enter">
-                            <div className="bg-white p-10 rounded-3xl border-2 border-slate-100 shadow-xl space-y-8">
-                                <h4 className="text-3xl font-black flex items-center text-slate-800 underline decoration-green-500 decoration-4 underline-offset-8 uppercase tracking-tighter">
-                                    <Icon name="ShieldCheck" className="mr-3 text-green-600" size={32} /> Security Proposal
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 items-center min-h-full slide-enter py-4">
+                            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-xl space-y-3 sm:space-y-4">
+                                <h4 className="text-lg sm:text-xl font-black flex items-center text-slate-800 underline decoration-green-500 decoration-4 underline-offset-4 uppercase tracking-tighter">
+                                    <Icon name="ShieldCheck" className="mr-2 text-green-600" size={24} /> Security Proposal
                                 </h4>
-                                <ul className="space-y-6 text-2xl text-slate-600 font-medium">
-                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-4 text-blue-600" /> Microsoft 365 Enterprise</li>
-                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-4 text-blue-600" /> Entra ID (Cloud Identity)</li>
-                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-4 text-blue-600" /> Barracuda Cloud Backup</li>
-                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-4 text-blue-600" /> Global Device Management</li>
+                                <ul className="space-y-2 text-sm sm:text-base text-slate-600 font-medium">
+                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-2 text-blue-600" size={16} /> Microsoft 365 Enterprise</li>
+                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-2 text-blue-600" size={16} /> Entra ID (Cloud Identity)</li>
+                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-2 text-blue-600" size={16} /> Barracuda Cloud Backup</li>
+                                    <li className="flex items-center"><Icon name="CheckCircle" className="mr-2 text-blue-600" size={16} /> Global Device Management</li>
                                 </ul>
                             </div>
-                            <div className="bg-slate-900 rounded-[40px] h-full flex flex-col items-center justify-center relative overflow-hidden shadow-2xl border border-slate-800">
+                            <div className="bg-slate-900 rounded-[24px] h-full hidden lg:flex flex-col items-center justify-center relative overflow-hidden shadow-2xl border border-slate-800 p-6 min-h-[200px]">
                                 <div className="relative z-10 text-center">
-                                    <div className="inline-block p-10 rounded-full bg-blue-600 text-white mb-8 shadow-2xl border-4 border-white/20"><Icon name="ShieldCheck" size={100} /></div>
-                                    <p className="text-white text-4xl font-black uppercase tracking-widest italic text-blue-400 underline decoration-blue-500/50">Proposed Standard</p>
-                                    <p className="text-slate-400 mt-4 font-bold uppercase tracking-widest text-sm">Enterprise Security Level</p>
+                                    <div className="inline-block p-6 rounded-full bg-blue-600 text-white mb-4 shadow-2xl border-4 border-white/20"><Icon name="ShieldCheck" size={56} /></div>
+                                    <p className="text-white text-xl font-black uppercase tracking-widest italic">Proposed Standard</p>
+                                    <p className="text-slate-400 mt-1 font-bold uppercase text-[10px]">Enterprise Security Level</p>
                                 </div>
                             </div>
                         </div>
                     ),
-                    notes: "Für die Sicherheit schlage ich vor, die vorhandenen Prepaid-Lizenzen und moderne Cloud-Verwaltung zu nutzen, um die Hardware an jedem Ort der Welt zu schützen."
+                    notes: "Für die Sicherheit schlage ich vor, die vorhandenen Prepaid-Lizenzen und moderne Cloud-Verwaltung zu nutzen."
                 },
                 {
                     title: "Ready for Growth",
                     content: (
-                        <div className="flex flex-col items-center justify-center h-full text-center relative slide-enter">
-                            <div className="mb-12"><Icon name="ShieldCheck" size={140} className="text-green-500 mx-auto drop-shadow-2xl" /></div>
-                            <h2 className="text-6xl font-black text-slate-900 mb-8 italic">Ready to Scale.</h2>
-                            <div className="grid grid-cols-3 gap-12 w-full max-w-5xl">
-                                <div className="p-6 bg-slate-50 rounded-2xl shadow-sm"><p className="text-4xl font-black text-blue-600 mb-1">ROBUST</p><p className="text-slate-500 font-bold uppercase tracking-widest text-sm">Foundation</p></div>
-                                <div className="p-6 bg-slate-50 rounded-2xl border-x border-slate-200"><p className="text-4xl font-black text-blue-600 mb-1">LEAN</p><p className="text-slate-500 font-bold uppercase tracking-widest text-sm">Operation</p></div>
-                                <div className="p-4 bg-slate-50 rounded-2xl shadow-sm"><p className="text-4xl font-black text-blue-600 mb-1">SMART</p><p className="text-slate-500 font-bold uppercase tracking-widest text-sm">Integration</p></div>
+                        <div className="flex flex-col items-center justify-center min-h-full text-center relative slide-enter py-4">
+                            <div className="mb-4 sm:mb-6"><Icon name="ShieldCheck" size={80} className="text-green-500 mx-auto drop-shadow-2xl sm:w-24 sm:h-24" /></div>
+                            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-4 sm:mb-6 italic">Ready to Scale.</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 w-full max-w-4xl">
+                                <div className="p-3 bg-slate-50 rounded-xl shadow-sm"><p className="text-xl font-black text-blue-600 mb-0.5 uppercase">Robust</p><p className="text-slate-500 font-bold uppercase text-[9px]">Foundation</p></div>
+                                <div className="p-3 bg-slate-50 rounded-xl border-x-0 sm:border-x border-slate-200"><p className="text-xl font-black text-blue-600 mb-0.5 uppercase">Lean</p><p className="text-slate-500 font-bold uppercase text-[9px]">Operation</p></div>
+                                <div className="p-3 bg-slate-50 rounded-xl shadow-sm"><p className="text-xl font-black text-blue-600 mb-0.5 uppercase">Smart</p><p className="text-slate-500 font-bold uppercase text-[9px]">Integration</p></div>
                             </div>
-                            <p className="mt-16 text-slate-400 font-black uppercase tracking-[0.2em] text-lg italic text-blue-500">Thank you for your attention.</p>
+                            <p className="mt-8 text-slate-400 font-black uppercase tracking-[0.2em] text-[11px] sm:text-sm italic text-blue-500">Thank you for your attention.</p>
                         </div>
                     ),
                     notes: "Zusammenfassend: SL International ist digital bereit für den Erfolg. Ich freue mich auf Ihre Anmerkungen zu diesem Vorschlag."
                 }
             ];
 
-            const nextSlide = () => {
-                if (currentSlide === slides.length - 1) {
-                    setCurrentSlide(0); // Restart functionality
-                } else {
-                    setCurrentSlide(currentSlide + 1);
-                }
-            };
-
+            const nextSlide = () => setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
             const prevSlide = () => setCurrentSlide((prev) => Math.max(prev - 1, 0));
 
             useEffect(() => {
@@ -310,43 +319,50 @@
             }, [currentSlide]);
 
             return (
-                <div className="min-h-screen flex flex-col p-10 select-none bg-slate-50/50">
-                    <div className="flex justify-between items-center mb-10 h-16 border-b-2 border-slate-200 pb-6">
-                        <div className="flex items-center space-x-4">
-                            <div className="bg-blue-600 w-5 h-5 rounded-lg rotate-45 shadow-sm"></div>
-                            <span className="font-black text-3xl tracking-tighter uppercase text-slate-800 italic">SL International <span className="text-blue-600">IT PROPOSAL</span></span>
+                <div className="h-screen flex flex-col p-3 sm:p-6 select-none bg-slate-50/50 overflow-hidden">
+                    {/* Minimal Header */}
+                    <div className="flex justify-between items-center mb-3 h-10 border-b border-slate-200 pb-2 flex-shrink-0">
+                        <div className="flex items-center space-x-2">
+                            <div className="bg-blue-600 w-3 h-3 rounded shadow-sm"></div>
+                            <span className="font-black text-sm sm:text-lg tracking-tighter uppercase text-slate-800">SL International <span className="text-blue-600">Proposal</span></span>
                         </div>
-                        <div className="text-slate-400 font-black italic text-sm tracking-widest uppercase">
-                            Confidential Proposal | Slide {currentSlide + 1} / {slides.length}
+                        <div className="text-slate-400 font-black italic text-[9px] sm:text-[10px] tracking-widest uppercase">
+                            Slide {currentSlide + 1} / {slides.length}
                         </div>
                     </div>
 
-                    <h2 className="text-6xl font-black mb-12 text-slate-900 flex items-center">
-                        <span className="w-20 h-2 bg-blue-600 mr-8 rounded-full shadow-sm"></span>
+                    {/* Flatter Slide Title */}
+                    <h2 className="text-xl sm:text-3xl font-black mb-3 text-slate-900 flex items-center flex-shrink-0">
+                        <span className="w-8 h-1 bg-blue-600 mr-3 rounded-full shadow-sm"></span>
                         {slides[currentSlide].title}
                     </h2>
 
-                    <div className="flex-grow bg-white rounded-3xl shadow-sm border border-slate-100 p-8 flex flex-col">
-                        {slides[currentSlide].content}
+                    {/* Content Area with Internal Scrollbar support */}
+                    <div className="flex-grow bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-6 flex flex-col min-h-0 relative">
+                        <div className="flex-grow overflow-y-auto content-scrollbar pr-2">
+                            {slides[currentSlide].content}
+                        </div>
                     </div>
 
-                    <div className="mt-12 grid grid-cols-12 gap-10 items-end">
-                        <div className="col-span-8">
-                            <div className="bg-blue-50 p-6 rounded-3xl border-2 border-blue-100 shadow-inner custom-scrollbar overflow-y-auto max-h-32">
-                                <p className="text-2xl font-bold text-blue-900 leading-snug italic">{slides[currentSlide].notes}</p>
+                    {/* Compact Note Area & Nav */}
+                    <div className="mt-3 flex flex-col sm:flex-row gap-3 items-stretch sm:items-end flex-shrink-0">
+                        <div className="flex-grow min-w-0">
+                            <div className="bg-blue-50 p-3 rounded-xl border border-blue-100 shadow-inner custom-scrollbar overflow-y-auto max-h-16 sm:max-h-24">
+                                <p className="text-xs sm:text-base font-bold text-blue-900 italic leading-snug">{slides[currentSlide].notes}</p>
                             </div>
                         </div>
-                        <div className="col-span-4 flex justify-end space-x-6">
-                            <button onClick={prevSlide} className="px-8 py-6 rounded-3xl bg-slate-100 hover:bg-slate-200 transition-all font-black text-slate-600 shadow-sm active:scale-95 border-b-4 border-slate-300">Back</button>
+                        <div className="flex justify-end space-x-2 flex-shrink-0">
+                            <button onClick={prevSlide} className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 transition-all font-black text-[10px] sm:text-sm text-slate-600 shadow-sm border-b border-slate-300 active:translate-y-0.5">Back</button>
                             <button 
                                 onClick={nextSlide} 
-                                className="px-12 py-6 rounded-3xl transition-all font-black text-white shadow-xl active:scale-95 border-b-4 bg-slate-900 hover:bg-black border-slate-700"
+                                className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-black transition-all font-black text-[10px] sm:text-sm text-white shadow-xl border-b border-slate-700 active:translate-y-0.5"
                             >
                                 {currentSlide === slides.length - 1 ? 'Restart' : 'Next'}
                             </button>
                         </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 h-2 bg-blue-600 transition-all duration-700 shadow-[0_0_15px_rgba(37,99,235,0.5)]" style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}></div>
+                    {/* Bottom Progress Indicator */}
+                    <div className="absolute bottom-0 left-0 h-1 bg-blue-600/50 transition-all duration-500" style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}></div>
                 </div>
             );
         };
